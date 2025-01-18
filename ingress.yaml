@@ -1,19 +1,20 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nodejs
   namespace: default
+  name: nodejs
   annotations:
-    kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/subnets: subnet-0dde0f37c2c232c7d, subnet-0ac13c08830e63bbf
-  labels:
-    app: nodejs
+    alb.ingress.kubernetes.io/target-type: ip
 spec:
+  ingressClassName: alb
   rules:
     - http:
         paths:
-          - path: /*
-            backend:
-              serviceName: nodejs
-              servicePort: 80
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: nodejs
+              port:
+                number: 80
