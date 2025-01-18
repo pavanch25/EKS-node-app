@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: nodejs
-        image: kimschles/pod-info-app:0.0.5
+        image: 891376985437.dkr.ecr.ap-south-1.amazonaws.com/node:latest
         ports:
         - containerPort: 3000
