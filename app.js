@@ -1,34 +1,16 @@
-var http = require('http');
-var fs = require('fs'); // to get data from html file
+// Import the http module
+const http = require('http');
 
-http.createServer(function (req, res) {
-    var url = req.url;
-    if (url === "/") {
-        fs.readFile("head.html", function (err, pgres) {
-            if (err) {
-                res.writeHead(404, { 'Content-Type': 'text/plain' });
-                res.write("HEAD.HTML NOT FOUND");
-                res.end();
-            } else {
-                res.writeHead(200, { 'Content-Type': 'text/html' });
-                res.write(pgres);
-                res.end();
-            }
-        });
-    } else if (url === "/tailPage") {
-        fs.readFile("tail.html", function (err, pgres) {
-            if (err) {
-                res.writeHead(404, { 'Content-Type': 'text/plain' });
-                res.write("TAIL.HTML NOT FOUND");
-                res.end();
-            } else {
-                res.writeHead(200, { 'Content-Type': 'text/html' });
-                res.write(pgres);
-                res.end();
-            }
-        });
-    }
+// Create a server object
+const server = http.createServer((req, res) => {
+  // Write a response header
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  // Write a response body
+  res.end('Hello from Docker!\n');
+});
 
-}).listen(3000, function () {
-    console.log("SERVER STARTED PORT: 3000");
+// Listen on port 3000
+server.listen(3000, () => {
+  // Log a message when the server starts
+  console.log('Server running at http://localhost:3000/');
 });
